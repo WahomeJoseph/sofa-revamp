@@ -19,18 +19,19 @@ export default function Orders() {
 
   useEffect(() => {
     const fetchOrders = async () => {
-
       if (status === 'unauthenticated') {
         router.push('/login?callbackUrl=/orders');
         return;
-      } else if (status === 'authenticated') {
+      }
+
+      if (status === 'authenticated' && session?.user) {
         try {
           setLoading(true);
           setError('');
           const response = await fetch(
-            `/api/orders?userId=${session.user.id}&userEmail=${session.user.email}`,
+            `/api/orders?userId=${session.user.id}&email=${session.user.email}`,
             { cache: "no-store" }
-          )
+          );
           const data = await response.json();
           if (!response.ok) throw new Error(data.message || 'Failed to fetch orders');
           setOrders(data.orders);
@@ -42,6 +43,9 @@ export default function Orders() {
           setLoading(false);
         }
       }
+    };
+
+    if (status !== 'loading') {
       fetchOrders();
     }
   }, [status, session, router]);

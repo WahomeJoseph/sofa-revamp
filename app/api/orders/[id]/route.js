@@ -80,48 +80,11 @@ export async function POST(request) {
 }
 
 // get orders
-// export async function GET(request, { params }) {
-//     try {
-//         await connectDB();
-//         if (!params?.id) {
-//             return NextResponse.json(
-//                 { message: 'Order ID is required' },
-//                 { status: 400 }
-//             );
-//         }
-//         const order = await Order.findById(params?.id).lean()
-//         if (!order) {
-//             return NextResponse.json(
-//                 { message: 'Order not found!' },
-//                 { status: 400 }
-//             )
-//         }
-//         return NextResponse.json(
-//             {
-//                 message: 'Order fetched successfully!',
-//                 _id: order._id.toString(),
-//                 status: order.status,
-//                 total: order.total,
-//                 items: order.items,
-//                 shippingInfo: order.shippingInfo,
-//                 createdAt: order.createdAt
-//             },
-//             { status: 200 }
-//         )
-//     } catch (error) {
-//         console.error("Failed to fetch order", error);
-//         return NextResponse.json(
-//             { message: "Failed to fetch orders. Please try again." },
-//             { status: 500 }
-//         );
-//     }
-// }
-
 export async function GET(request, { params }) {
   try {
     await connectDB();
 
-    const orderId = params.id;
+    const orderId = await params.id;
 
     if (!orderId) {
       return NextResponse.json({ message: 'Order ID is required' }, { status: 400 });

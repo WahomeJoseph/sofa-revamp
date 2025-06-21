@@ -5,10 +5,17 @@ import { useParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Package, Calendar, CreditCard, Truck, CheckCircle, Clock, ArrowLeft } from 'lucide-react';
+import { Package, Calendar, Truck, CheckCircle, Clock, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import Image from 'next/image';
+import LoaderSkeleton from '../theme/LoaderSkeleton';
+import { User } from 'lucide-react';
+import { MapPin } from 'lucide-react';
+import { Phone } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import { Separator } from '../ui/separator';
+import { FaHandHoldingDollar } from "react-icons/fa6";
 
 export default function OrderConfirm() {
   const { id } = useParams();
@@ -74,14 +81,17 @@ export default function OrderConfirm() {
     }
   };
 
+  // if (loading) {
+  //   return (
+  //     <div className="container mx-auto px-4 py-8">
+  //       <div className="flex justify-center">
+  //         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
   if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
-        </div>
-      </div>
-    );
+    return <LoaderSkeleton />
   }
 
   if (!order) {
@@ -98,18 +108,32 @@ export default function OrderConfirm() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Button variant="ghost" asChild className="mb-6">
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <Button variant="ghost" asChild className="mb-6 bg-white/50 backdrop-blur-sm">
         <Link href="/orders" className="flex items-center">
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Orders
         </Link>
       </Button>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
+
+        {/* Success Banner */}
+        <div className="bg-gradient-to-r from-emerald-600 to-teal-500 rounded-2xl p-6 text-white shadow-lg">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+              <CheckCircle className="w-6 h-6" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold">Order Confirmed!</h1>
+              <p className="text-emerald-100">Thank you for your purchase. We're processing your order.</p>
+            </div>
+          </div>
+        </div>
+
         <Card className="border-gray-200 shadow-sm">
-          <CardHeader className="border-b border-gray-200 p-4">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <CardHeader className="bg-gradient-to-r from-gray-50 to-slate-50 p-8 border-b">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
               <div>
                 <h2 className="font-semibold text-lg">Order #{order.orderNumber}</h2>
                 <div className="flex items-center text-sm text-gray-600 mt-1">
@@ -137,7 +161,7 @@ export default function OrderConfirm() {
                   {order.orderItems.map((item, index) => {
                     const product = products[index];
                     return (
-                      <div key={item.productId} className="flex gap-4">
+                      <div key={item.productId} className="flex gap-4 p-2 rounded bg-gray-50">
                         <div className="relative h-20 w-20 flex-shrink-0">
                           <Image
                             src={product?.images?.[0] || '/placeholder.jpg'}
@@ -161,39 +185,41 @@ export default function OrderConfirm() {
                 </div>
               </div>
 
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-medium mb-4 text-lg">Delivery Information</h3>
-                  <div className="text-sm text-gray-600 space-y-2">
-                    <p>{order.name}</p>
-                    <p>{order.address}</p>
-                    <p>{order.city}, {order.postalCode}</p>
-                    <p>{order.phone}</p>
-                    <p>{order.email}</p>
-                    <p className="mt-2">
-                      <span className="font-medium">Delivery Method:</span> {order.deliveryMethod}
-                    </p>
+              <div className="space-y-8">
+                <div className='space-y-4'>
+                  <h3 className="font-bold text-lg text-gray-900">Delivery Information</h3>
+                  <div className="bg-gray-50 rounded-xl p-4 space-y-4">
+                    <p className='flex items-center gap-2'><User className='font-light text-sm' size={16} />{order.name}</p>
+                    <p className='flex items-center gap-2'><MapPin className='font-light text-sm' size={16} />{order.address}</p>
+                    <p className='flex items-center gap-2'><Phone className='font-light text-sm' size={16} />{order.phone}</p>
+                    <p className='flex items-center gap-2'><Mail className='font-light text-sm' size={16} />{order.email}</p>
+
+                    <Separator className='bg-gray-900/20' />
+
+                    <div className="mt-2 flex gap-20">
+                      <span className="font-medium">Delivery Method:</span>
+                      <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200"> {order.deliveryMethod}</Badge>
+                    </div>
                   </div>
                 </div>
 
-                <div>
-                  <h3 className="font-medium mb-4 text-lg">Payment Information</h3>
-                  <div className="text-sm text-gray-600 space-y-2">
-                    <div className="flex items-center">
-                      <CreditCard className="h-4 w-4 mr-1" />
-                      <span>{order.paymentMethod}</span>
+                <div className='space-y-4'>
+                  <h3 className="font-bold text-lg text-gray-900">Payment Information</h3>
+                  <div className="bg-gray-50 rounded-xl p-4 space-y-4">
+                    <div className="flex items-center gap-2">
+                      <FaHandHoldingDollar className='font-light text-sm' size={16} />
+                      <span>{order.paymentMethod} 07******78</span>
                     </div>
-                    <p>
-                      <span className="font-medium">Payment Timing:</span> {order.paymentTime}
+                    <p className="text-sm text-gray-900">
+                      <span className="font-medium">Payment Status:</span> {order.paymentTime}
                     </p>
-                    <div className="mt-4 pt-4 border-t border-gray-200">
+
+                    <Separator className='bg-gray-900/20'/>
+
+                    <div className="space-y-4">
                       <div className="flex justify-between">
                         <span>Subtotal:</span>
                         <span>${order.totalAmount.toFixed(2)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Shipping:</span>
-                        <span>{order.deliveryMethod === 'Express' ? '$15.00' : 'Free'}</span>
                       </div>
                       <div className="flex justify-between font-bold text-lg mt-2">
                         <span>Total:</span>
