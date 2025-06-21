@@ -25,7 +25,7 @@ export default function Shop() {
         async function fetchProducts() {
             try {
                 setLoading(true)
-                const res = await fetch('http://localhost:3001/api/products', {
+                const res = await fetch('/api/products', {
                     cache: 'no-store',
                     method: 'GET',
                     headers: {
