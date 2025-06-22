@@ -52,7 +52,7 @@ export default function Navigation() {
                         <div className='flex items-center ml-0'>
                             <a href='/' className='flex-shrink-0'>
                                 <h1 className='text-2xl lg:text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-950 bg-clip-text text-transparent hover:from-blue-700 hover:to-indigo-700 transition-all duration-200'>
-                                    SofaLuxx
+                                    SofaRevamp
                                 </h1>
                             </a>
                         </div>
