@@ -73,3 +73,10 @@ next-env.d.ts
 dump.rdb
 .vercel
 .netlify
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

@@ -5,7 +5,7 @@ import StoreProvider from './Provider';
 import { SessionProvider } from 'next-auth/react';
 
 export const metadata = {
-  title: 'SofaLuxx Shop',
+  title: 'SofaLux',
   description: 'Purchase your sofas from SofaLuxx',
 };
 

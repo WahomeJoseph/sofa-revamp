@@ -89,7 +89,7 @@ export default function Footer() {
                         <div className="lg:col-span-4 space-y-6">
                             <div>
                                 <h2 className="text-3xl font-bold text-gray-900 mb-3 tracking-tight">
-                                    SofaLuxx
+                                    Sofa.Luxx
                                 </h2>
                                 <div className="w-12 h-1 bg-gradient-to-r from-gray-600 to-indigo-600 rounded-full mb-6"></div>
                                 <p className="text-gray-600 leading-relaxed text-base max-w-md">

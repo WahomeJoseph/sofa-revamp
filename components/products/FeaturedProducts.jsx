@@ -83,10 +83,10 @@ export default function FeaturedProducts() {
                                 />
 
                                 <Badge
-                                    className={`absolute top-3 left-3 ${product.badge === "Sale" ? "bg-red-500" :
-                                        product.badge === "New" ? "bg-green-500" :
-                                            product.badge === "Premium" ? "bg-purple-500" :
-                                                "bg-blue-500"
+                                    className={`absolute top-3 left-3 ${product.badge === "Sale" ? "bg-red-500 text-white" :
+                                        product.badge === "New" ? "bg-green-500 text-white" :
+                                            product.badge === "Premium" ? "bg-purple-500 text-white" :
+                                                "bg-blue-500 text-white"
                                         }`}>
                                     {product.badge}
                                 </Badge>
@@ -108,8 +108,8 @@ export default function FeaturedProducts() {
                                     </Button>
                                 </div>
 
-                                <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 rounded-md group-hover:bg-gray-900 text-white transition-opacity">
-                                    <Button className="w-full" size="sm">
+                                <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 hover:scale-105 rounded-full cursor-pointer group-hover:bg-gray-900 text-white transition-opacity duration-300">
+                                    <Button className="w-full" size="lg">
                                         <ShoppingCart className="h-4 w-4 mr-2" />
                                         Quick Add
                                     </Button>

@@ -114,7 +114,7 @@ export default function Signup() {
                         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
 
                         <CardHeader className="space-y-2 pb-8 relative">
-                            <CardTitle className="text-3xl text-center font-bold tracking-tight">Create you Sofaluxx Account</CardTitle>
+                            <CardTitle className="text-3xl text-center font-bold tracking-tight">Create you Sofa.lux Account</CardTitle>
                             <CardDescription className="text-center text-base leading-relaxed">
                                 Enter your details to join our premium experience
                             </CardDescription>
